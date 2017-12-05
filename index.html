@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Hello world</title>
+	<!-- Script tags including React -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://unpkg.com/react@15/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+	<script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div id="app"></div>
+
+		<a href="#" class="btn btn-primary">Hi</a>
+	</div>
+	<script type="text/babel">
+		class App extends React.Component {
+			render() {
+				const activities = [
+														{
+															timestamp: new Date().getTime(),
+															text: "Ate lunch",
+															user: {
+																id: 1, name: 'Nate',
+																avatar: "http://www.croop.cl/UI/twitter/images/doug.jpg"
+															},
+															comments: [{ from: 'Ari', text: 'Me too!' }]
+														},
+														{
+															timestamp: new Date().getTime(),
+															text: "Ate ZXZXDsad",
+															user: {
+																id: 2, name: 'Male',
+																avatar: "http://www.croop.cl/UI/twitter/images/carl.jpg"
+															},
+															comments: [{ from: 'asdasd', text: 'Msse too!' }]
+														}
+													]
+			  return (
+			  	<div className="notificationsFrame">
+		  			<div className="panel">
+			  			<Header  title="Timeline"/>
+			  			<Content activities={activities}> </Content>
+		  			</div>
+			  	</div>
+			  )
+			}
+		}
+
+		class Header extends React.Component{
+			render(){
+				return(
+					<div className="header">
+						<div className="fa fa-more"></div>
+						<span className="title">{this.props.title}</span>
+						<input type="text"
+							className="searchInput"
+							placeholder="Search"/>
+						<div className="fa fa-search searchIcon"></div>
+					</div>
+				)
+			}
+		}
+
+		class Content extends React.Component{
+			render(){
+				const {activities} = this.props;
+				return(
+					<div className="content">
+						<div className="line">
+							{activities.map((activity) => {
+								return(
+									<div className="item">
+										<div className="avatar">
+											<img src={activity.user.avatar}/>
+											{activity.user.name}
+										</div>
+										<span className="time">
+											{activity.timstamp}
+										</span>
+										<p>{activity.text}</p>
+										<div className="commentCount">
+											{activity.comments.length}
+										</div>
+									</div>
+								);
+							})}
+						</div>
+					</div>
+				)
+			}
+		}
+
+		class Clock extends React.Component{
+			render() {
+				const currentTime = new Date(),
+				hours = currentTime.getHours(),
+				minutes = currentTime.getMinutes(),
+				seconds = currentTime.getSeconds(),
+				amp = hours>= 12 ? 'pm' : 'am'
+			}
+			return(
+				<div className="clock">
+				{
+					hours == 0 ? 12 :
+						(hours > 12) ?
+							hours - 12 : hours
+				}:{
+					minutes > 9 ? minutes : `0${minutes} `
+				}:{
+					seconds > 9 ? seconds : `0${seconds}`
+				} {ampm}
+				</div>
+			)
+		}
+		var mount = document.querySelector('#app');
+		ReactDOM.render(<App />, mount);
+	</script>
+</body>
+</html>
